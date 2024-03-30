@@ -16,7 +16,7 @@ async function inserirFilme() {
     let genre = document.getElementById('exampleInputGenre').value
     let duration = document.getElementById('exampleInputDuration').value
 
-    let req = await fetch('https://25.60.175.138:7197/filme', {
+    let req = await fetch('http://25.60.175.138:5125/filme/', {
         method: 'POST',
         body: JSON.stringify({
             titulo: `${title}`,
@@ -42,10 +42,14 @@ async function inserirFilme() {
 
 async function getFilme() {
     try {
-        const response = await fetch('https://25.60.175.138:7197/filme');
+        const response = await fetch('http://25.60.175.138:5125/filme/');
         const data = await response.json();
 
+
         const tableBody = document.querySelector('#data-table tbody');
+        tableBody.innerHTML = '';
+
+
         const trashImg = '<img src="trash.png">'
         const editImg = '<img src="edit.png">'
 
@@ -72,7 +76,7 @@ async function getFilme() {
 
         editButton.addEventListener('click', async () => {
             try {
-                const responseEdit = await fetch(`https://25.60.175.138:7197/filme/${item.id}`)
+                const responseEdit = await fetch(`http://25.60.175.138:5125/filme/${item.id}`)
                 const dataEdit = await responseEdit.json();
 
                 document.querySelector("#modalInputTitulo").value = dataEdit.titulo
@@ -85,7 +89,7 @@ async function getFilme() {
                         let genreEdit = document.querySelector("#modalInputGenre").value
                         let durationEdit = document.querySelector("#modalInputDuration").value
                     
-                        let req = await fetch(`https://25.60.175.138:7197/filme/${dataEdit.id}`, {
+                        let req = await fetch(`http://25.60.175.138:5125/filme/${dataEdit.id}`, {
                             method: 'PUT',
                             body: JSON.stringify({
                                 titulo: `${titleEdit}`,
@@ -120,7 +124,7 @@ async function getFilme() {
         deleteButton.addEventListener('click', async () => {
             try {
                 // Faça a requisição para excluir o item
-                await fetch(`https://25.60.175.138:7197/filme/${item.id}`, {
+                await fetch(`http://25.60.175.138:5125/filme/${item.id}`, {
                     method: 'DELETE'
                 });
                 
