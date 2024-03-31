@@ -23,10 +23,6 @@
             <label for="exampleInputPassword1" class="form-label">Duração:</label>
             <input type="number" class="form-control" id="exampleInputDuration">
           </div>
-        <div class="mb-3 form-check">
-          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-          <label class="form-check-label" for="exampleCheck1">Check me out</label>
-        </div>  
       </form>
 
       <button onclick="inserirFilme()" class="btn btn-primary" id="submit">Cadastrar</button>
@@ -41,7 +37,10 @@
           </div>
           <div class="modal-body">
             <div class="mb-3">
-              <h2 id="h1"></h2>
+              <label for="exampleInputPassword1" class="form-label">ID</label>
+              <input type="text" class="form-control" id="modalInputID" disabled>
+            </div>
+            <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Título:</label>
             <input type="text" class="form-control" id="modalInputTitulo" aria-describedby="emailHelp">
           </div>
@@ -63,8 +62,15 @@
     </div>
 
     <div class="container">
-      <table class="table" id ="data-table">
+      <table class="table table-striped" id ="data-table">
+        <div>
+
         <button onclick="getFilme()" class="btn btn-secondary mt-3" id="getFilme">Listar Filmes</button>
+        <h5 class="h2"></h5>
+        <button onclick="previousPage()" class="btn btn-secondary mt-3" id="getFilme">Voltar</button>
+        <button onclick="nextPage()" class="btn btn-secondary mt-3" id="getFilme">Proxima</button>
+        
+      </div>
         <thead>
           <tr>
             <th scope="col">ID</th>

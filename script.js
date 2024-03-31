@@ -2,6 +2,35 @@ let jsonFilmes;
 let modalTituloHTML = document.querySelector("#modalInputTitulo").value
 let modalGenreHTML = document.querySelector("#modalInputGenre").value
 let modalDurationHTML = document.querySelector("#modalInputDuration").value
+let pageHTML = document.querySelector(".h2");
+
+
+
+let page= 1;
+let skip = 0;
+let take = 10;
+
+pageHTML.innerHTML = `Página ${page}`
+
+function nextPage(){
+    page++
+    skip = skip + 10
+    pageHTML.innerHTML = `Página ${page}`
+    console.log(page)
+    console.log(skip)
+    getFilme()
+}
+
+function previousPage() {
+    if(page > 1 || skip > 0) {
+        page = page - 1
+        skip = skip - 10
+        pageHTML.innerHTML = `Página ${page}`
+        getFilme()
+    } 
+}
+
+
 
 var closeModal = document.querySelector(".closeModal")
 closeModal.addEventListener("click",()=>{
@@ -42,7 +71,7 @@ async function inserirFilme() {
 
 async function getFilme() {
     try {
-        const response = await fetch('http://25.60.175.138:5125/filme/');
+        const response = await fetch(`http://25.60.175.138:5125/filme/?skip=${skip}&take=${take}`);
         const data = await response.json();
 
 
@@ -79,6 +108,7 @@ async function getFilme() {
                 const responseEdit = await fetch(`http://25.60.175.138:5125/filme/${item.id}`)
                 const dataEdit = await responseEdit.json();
 
+                document.querySelector("#modalInputID").value = dataEdit.id
                 document.querySelector("#modalInputTitulo").value = dataEdit.titulo
                 document.querySelector("#modalInputGenre").value = dataEdit.genero
                 document.querySelector("#modalInputDuration").value = dataEdit.duracao
@@ -105,7 +135,7 @@ async function getFilme() {
                             console.log("Ocorreu um erro");
                         } finally {
                             document.querySelector(".modal").style.display = "none";
-                            alert(`Filme ${dataEdit.titulo} alterado com sucesso!`)
+                            getFilme()
                         }
                 })
         
@@ -140,3 +170,4 @@ async function getFilme() {
         console.error('Ocorreu um erro ao obter os dados:', error);
     }
 }
+window.addEventListener("load", getFilme())
