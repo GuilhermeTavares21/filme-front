@@ -132,7 +132,7 @@ async function getFilme() {
                         });
                         let json = await req.json();
                         } catch(error) {
-                            console.log("Ocorreu um erro");
+                            console.log("Ocorreu um erro...");
                         } finally {
                             document.querySelector(".modal").style.display = "none";
                             getFilme()
